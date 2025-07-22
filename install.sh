@@ -64,7 +64,7 @@ run_sudo pacman -S --noconfirm --needed\
   network-manager-applet blueman power-profiles-daemon \
   qt5-wayland qt6-wayland qt5ct qt6ct nwg-look \
   papirus-icon-theme ttf-jetbrains-mono-nerd ttf-font-awesome \
-  noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-indic-otf hyprshot cliphist rofi-wayland & spinner
+  noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-indic-otf hyprshot cliphist rofi-wayland reflector timeshift pacman-contrib pavucontrol thunar & spinner
 success "Essential Wayland and desktop packages installed"
 
 section "Enabling services"
@@ -87,7 +87,6 @@ paru -S --noconfirm graphite-gtk-theme \
     ghostty visual-studio-code-bin \
     timeshift-autosnap wlogout & spinner
 success "AUR packages installed"
-
 
 
 section "Installing Node via nvm"
@@ -127,11 +126,22 @@ fi
 
 section "Applying dotfiles with stow"
 cd ~/dotfiles || handle_error "cd ~/dotfiles failed"
-stow * & spinner
+mv ~/.config/hypr ~/.config/hypr.bak
+mv ~/.config/kitty ~/.config/kitty.bak
+mkdir -p ~/.config/waybar
+
+stow -d ~/dotfiles -t ~ hypr  & spinner
+stow -d ~/dotfiles -t ~ waybar  & spinner
+stow -d ~/dotfiles -t ~ kitty  & spinner
 success "Dotfiles applied"
 
 section "GTK and Icon Theme Setup"
 mkdir -p ~/.config/gtk-3.0 ~/.config/gtk-4.0
+
+cd /tmp
+git clone https://github.com/vinceliuice/Graphite-gtk-theme.git
+cd Graphite-gtk-theme || handle_error "failed to clone graphite theme"
+./install.sh -c dark -s compact -s standard -l --tweaks black rimless || handle_error "Failed to install Graphite Theme!!"
 
 cat > ~/.config/gtk-3.0/settings.ini <<EOF
 [Settings]
@@ -179,6 +189,7 @@ run_sudo curl -fsSL https://tailscale.com/install.sh | sh & spinner
 success "Tailscale installed"
 
 section "Cleaning up"
+run_sudo pacman -R dolphin wofi grim slurp
 rm -rf /tmp/paru
 success "Cleaned up temporary files"
 
