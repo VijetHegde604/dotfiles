@@ -1,0 +1,118 @@
+{
+  "layer": "top",
+  "position": "top",
+  "spacing": 4,
+  "height": 36,
+  "margin": "8 12 0 12",
+
+  "modules-left": ["custom/uptime", "custom/music"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "network",
+    "pulseaudio",
+    "battery",
+    "power-profiles-daemon",
+    "tray",
+    "clock",
+    "custom/power",
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "active": "",
+    },
+    "max-persistent-workspaces": {
+      "*": [1, 2, 3, 4, 5],
+    },
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 20,
+  },
+
+  "custom/music": {
+    "format": "  {}",
+    "escape": true,
+    "interval": 1,
+    "exec": "playerctl metadata --format '{{ artist }} - {{ title }}' || echo ''",
+    "on-click": "playerctl play-pause",
+    "max-length": 50,
+    "tooltip": false,
+  },
+
+  "clock": {
+    "timezone": "Asia/Kolkata",
+    "format": "{:%I:%M %p}",
+    "interval": 1,
+    "tooltip": true,
+    "tooltip-format": "<big>{:%A, %d %B %Y}</big>",
+  },
+
+  "network": {
+    "format-wifi": "󰛴 {bandwidthDownBits}", // Icon: Download arrow with waves
+    "format-ethernet": "󰛶 {bandwidthDownBits}", // Icon: Download arrow with cable
+    "format-disconnected": "󰤭 No Network", // Icon: Wi-Fi X mark
+    "interval": 1,
+    "tooltip": false,
+  },
+
+  "custom/uptime": {
+    "format": "{}",
+    "interval": 10,
+    "exec": "sh -c 'ping -c 1 -W 1 homeserverpi >/dev/null && echo \"󰄨 Home: Online\" || echo \"󰅛 Home: Offline\"'",
+    "return-type": "plain",
+    "tooltip": false,
+    "on-click": "xdg-open https://login.tailscale.com/admin/machines",
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "interval": 1,
+    "format-muted": "", // Font Awesome 'muted' icon
+    "format-icons": {
+      "bluetooth": ["", "", ""], // Font Awesome Bluetooth icon (U+F293)
+      "headphones": ["", "", ""], // Font Awesome Headphones (U+F025)
+      "speaker": ["", "", ""], // Low, medium, high volume
+      "default": ["", "", ""],
+    },
+    "on-click": "pavucontrol",
+  },
+
+  "battery": {
+    "interval": 1,
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": true,
+    "states": {
+      "warning": 30,
+      "critical": 20,
+    },
+  },
+
+  "custom/power": {
+    "tooltip": false,
+    "on-click": "wlogout &",
+    "format": "⏻",
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon} {profile}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": "",
+    },
+  },
+}
