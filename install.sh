@@ -68,7 +68,7 @@ run_with_spinner sudo pacman -S --noconfirm --needed \
     papirus-icon-theme ttf-jetbrains-mono-nerd ttf-font-awesome \
     noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-indic-otf \
     hyprshot cliphist rofi-wayland reflector timeshift pacman-contrib \
-    pavucontrol thunar libsecret
+    pavucontrol thunar libsecret hyprlock hypridle xdg-user-dirs brighnessctl \
 success "Essential Wayland and desktop packages installed"
 
 # === SERVICES ===
@@ -90,7 +90,7 @@ success "paru installed"
 
 # === AUR PACKAGES ===
 section "Installing AUR packages"
-run_with_spinner paru -S --noconfirm graphite-gtk-theme ghostty \
+run_with_spinner paru -S --noconfirm google-chrome ghostty \
     visual-studio-code-bin timeshift-autosnap wlogout
 success "AUR packages installed"
 
@@ -144,6 +144,7 @@ mkdir -p ~/.config/waybar
 run_with_spinner stow -d ~/dotfiles -t ~ hypr
 run_with_spinner stow -d ~/dotfiles -t ~ waybar
 run_with_spinner stow -d ~/dotfiles -t ~ kitty
+run_with_spinner stow -d ~/dotfiles -t ~ wlogout
 success "Dotfiles applied"
 
 # === GTK THEME ===

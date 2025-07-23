@@ -51,7 +51,8 @@ button {
 #network,
 #custom-power,
 #power-profiles-daemon,
-#custom-uptime {
+#custom-uptime
+#custom-brightness {
     background-color: #1a1a1a;
     padding: 0.4rem 0.8rem;
     margin: 4px 4px;
@@ -105,4 +106,10 @@ button {
 
 #power-profiles-daemon.power-saver {
     color: #8caaee; /* Blue */
+}
+
+#custom-brightness {
+  color: #BB86FC;
+  padding: 0 10px;
+  font-size: 14px;
 }

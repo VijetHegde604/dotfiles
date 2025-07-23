@@ -11,6 +11,7 @@
     "network",
     "pulseaudio",
     "battery",
+    "custom/brightness",
     "power-profiles-daemon",
     "tray",
     "clock",
@@ -115,4 +116,17 @@
       "power-saver": "",
     },
   },
+
+  "custom/brightness": {
+    "format": "{text}%",
+    "tooltip": false,
+    "exec": "$HOME/dotfiles/waybar/.config/waybar/scripts/brightness.sh",
+    "interval": 1,
+    "return-type": "json",
+    "on-click": "brightnessctl set +10%",
+    "on-click-right": "brightnessctl set 10%-",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
 }
+
